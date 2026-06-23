@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker - Login</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(17, 24, 39, 0.6);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --primary-grad: linear-gradient(135deg, #6366f1, #a855f7);
+            --accent-blue: #3b82f6;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --input-bg: rgba(255, 255, 255, 0.05);
+            --input-border: rgba(255, 255, 255, 0.1);
+            --input-focus: #6366f1;
+            --success: #10b981;
+            --error: #ef4444;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Glowing background blobs */
+        .blob {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: 0;
+            opacity: 0.35;
+            pointer-events: none;
+            animation: floatBlobs 12s infinite alternate;
+        }
+
+        .blob-1 {
+            background: #6366f1;
+            top: -10%;
+            left: -10%;
+        }
+
+        .blob-2 {
+            background: #a855f7;
+            bottom: -10%;
+            right: -10%;
+            animation-delay: 3s;
+        }
+
+        @keyframes floatBlobs {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            100% {
+                transform: translate(40px, 40px) scale(1.15);
+            }
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            padding: 40px;
+            width: 420px;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            z-index: 10;
+            animation: cardAppear 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .logo-container {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 72px;
+            height: 72px;
+            border-radius: 20px;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            margin-bottom: 20px;
+            box-shadow: 0 8px 16px rgba(99, 102, 241, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .logo-container:hover {
+            transform: rotate(5deg) scale(1.05);
+        }
+
+        .logo-container img {
+            width: 42px;
+            height: 42px;
+        }
+
+        h2 {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(to right, #ffffff, #d8b4fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        p.subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            width: 18px;
+            height: 18px;
+            transition: color 0.3s;
+            pointer-events: none;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 14px 14px 44px;
+            border-radius: 12px;
+            background: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 15px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        input::placeholder {
+            color: var(--text-muted);
+            opacity: 0.8;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--input-focus);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+        }
+
+        input:focus+.input-icon {
+            color: var(--input-focus);
+        }
+
+        button.submit-btn {
+            width: 100%;
+            padding: 14px;
+            margin-top: 10px;
+            border-radius: 12px;
+            border: none;
+            background: var(--primary-grad);
+            color: white;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 10px 20px -5px rgba(139, 92, 246, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        button.submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 25px -5px rgba(139, 92, 246, 0.4);
+            filter: brightness(1.1);
+        }
+
+        button.submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .toggle-text {
+            margin-top: 24px;
+            font-size: 14px;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: color 0.2s;
+            display: inline-block;
+        }
+
+        .toggle-text:hover {
+            color: var(--text-main);
+        }
+
+        .toggle-text span {
+            color: #a855f7;
+            font-weight: 600;
+            text-decoration: underline;
+        }
+
+        #message {
+            margin-top: 15px;
+            font-weight: 500;
+            font-size: 14px;
+            min-height: 20px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        #message.show {
+            opacity: 1;
+        }
+
+        /* Shake animation for card on error */
+        .shake {
+            animation: shakeAnim 0.5s ease-in-out;
+        }
+
+        @keyframes shakeAnim {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            20%,
+            60% {
+                transform: translateX(-6px);
+            }
+
+            40%,
+            80% {
+                transform: translateX(6px);
+            }
+        }
+
+        /* Toast System */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .toast {
+            pointer-events: auto;
+            background: rgba(17, 24, 39, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            padding: 16px 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 280px;
+            max-width: 400px;
+            transform: translateX(120%);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        .toast-success {
+            border-left: 4px solid var(--success);
+        }
+
+        .toast-success .toast-icon {
+            color: var(--success);
+        }
+
+        .toast-error {
+            border-left: 4px solid var(--error);
+        }
+
+        .toast-error .toast-icon {
+            color: var(--error);
+        }
+
+        .toast-info {
+            border-left: 4px solid var(--accent-blue);
+        }
+
+        .toast-info .toast-icon {
+            color: var(--accent-blue);
+        }
+
+        .toast-message {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <div class="card" id="loginCard">
+        <div class="logo-container">
+            <img src="https://cdn-icons-png.flaticon.com/512/2331/2331941.png" alt="Expense Tracker Logo">
+        </div>
+
+        <h2 id="formTitle">Sign In</h2>
+        <p class="subtitle">Manage your expenses smartly</p>
+
+        <div class="input-group">
+            <input type="text" id="username" placeholder="Enter Username" required>
+            <i data-lucide="user" class="input-icon"></i>
+        </div>
+
+        <div class="input-group">
+            <input type="password" id="password" placeholder="Enter Password" required>
+            <i data-lucide="key-round" class="input-icon"></i>
+        </div>
+
+        <button class="submit-btn" onclick="submitForm()">
+            <span id="btnText">Sign In</span>
+            <i data-lucide="log-in" style="width:18px;height:18px;"></i>
+        </button>
+
+        <p id="message"></p>
+
+        <p class="toggle-text" onclick="toggleMode()" id="toggleText">
+            First time user? <span>Sign Up</span>
+        </p>
+    </div>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        let isSignIn = true;
+
+        // Custom Toast System
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+
+            let iconName = 'info';
+            if (type === 'success') iconName = 'check-circle-2';
+            if (type === 'error') iconName = 'alert-triangle';
+
+            toast.innerHTML = `
+                <i data-lucide="${iconName}" class="toast-icon"></i>
+                <div class="toast-message">${message}</div>
+            `;
+
+            container.appendChild(toast);
+            lucide.createIcons();
+
+            // Trigger animation
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 50);
+
+            // Remove toast after duration
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => {
+                    toast.remove();
+                }, 400);
+            }, 3500);
+        }
+
+        function triggerCardShake() {
+            const card = document.getElementById('loginCard');
+            card.classList.add('shake');
+            setTimeout(() => {
+                card.classList.remove('shake');
+            }, 500);
+        }
+
+        function toggleMode() {
+            isSignIn = !isSignIn;
+
+            document.getElementById("formTitle").innerText =
+                isSignIn ? "Sign In" : "Sign Up";
+
+            document.getElementById("toggleText").innerHTML =
+                isSignIn ?
+                    'First time user? <span>Sign Up</span>' :
+                    'Already have account? <span>Sign In</span>';
+
+            const btnText = document.getElementById("btnText");
+            const btnIcon = document.querySelector(".submit-btn i");
+
+            if (isSignIn) {
+                btnText.innerText = "Sign In";
+                btnIcon.setAttribute("data-lucide", "log-in");
+            } else {
+                btnText.innerText = "Sign Up";
+                btnIcon.setAttribute("data-lucide", "user-plus");
+            }
+            lucide.createIcons();
+
+            const messageElement = document.getElementById("message");
+            messageElement.innerText = "";
+            messageElement.classList.remove("show");
+        }
+
+        function submitForm() {
+            const usernameInput = document.getElementById("username");
+            const passwordInput = document.getElementById("password");
+            const username = usernameInput.value.trim();
+            const password = passwordInput.value.trim();
+
+            if (!username || !password) {
+                showToast("Please fill in all fields", "error");
+                triggerCardShake();
+                return;
+            }
+
+            const url = isSignIn ? "/auth/login" : "/auth/register";
+
+            fetch(url, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    username: username,
+                    password: password
+                })
+            })
+                .then(res => res.text())
+                .then(data => {
+                    const messageElement = document.getElementById("message");
+                    messageElement.innerText = data;
+                    messageElement.classList.add("show");
+
+                    if (data === "Login successful!" || data === "User registered successfully!") {
+                        messageElement.style.color = "#10b981"; // Success green
+                        showToast(data, "success");
+
+                        if (data === "Login successful!") {
+                            localStorage.setItem("loggedUser", username);
+                            setTimeout(() => {
+                                window.location.href = "/index.html";
+                            }, 800);
+                        } else {
+                            // After successful registration, toggle back to login automatically
+                            setTimeout(() => {
+                                toggleMode();
+                                usernameInput.value = username;
+                                passwordInput.value = "";
+                            }, 1200);
+                        }
+                    } else {
+                        messageElement.style.color = "#ef4444"; // Error red
+                        showToast(data, "error");
+                        triggerCardShake();
+                    }
+                })
+                .catch(err => {
+                    showToast("Connection error. Please check backend server.", "error");
+                    triggerCardShake();
+                });
+        }
+    </script>
+</body>
+
+</html>
