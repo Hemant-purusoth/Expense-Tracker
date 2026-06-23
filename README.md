@@ -13,6 +13,8 @@ A modern full-stack expense management application built with Spring Boot and My
 * Spring Data JPA
 * Hibernate
 
+<img width="1732" height="1002" alt="image" src="https://github.com/user-attachments/assets/a4a7d252-2670-4c27-acfa-b3b7213b8515" />
+
 ### Frontend
 
 * HTML5
