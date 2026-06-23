@@ -34,6 +34,9 @@ A modern full-stack expense management application built with Spring Boot and My
 * MySQL
 * Git & GitHub
 
+### Backend
+
+* Springboot 
 
 ### Installation
 
