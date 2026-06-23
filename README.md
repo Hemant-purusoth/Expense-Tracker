@@ -4,6 +4,17 @@ A modern full-stack expense management application built with java , Spring Boot
 
 ## 🛠️ Tech Stack
 
+### Frontend
+
+* HTML5
+* CSS3
+* JavaScript (ES6+)
+
+### Database & Tools
+
+* MySQL
+* Git & GitHub
+
 ### Backend
 
 * Java 17
@@ -22,21 +33,6 @@ A modern full-stack expense management application built with java , Spring Boot
 <img width="1732" height="1002" alt="image" src="https://github.com/user-attachments/assets/a4a7d252-2670-4c27-acfa-b3b7213b8515" />
 
 ---
-
-### Frontend
-
-* HTML5
-* CSS3
-* JavaScript (ES6+)
-
-### Database & Tools
-
-* MySQL
-* Git & GitHub
-
-### Backend
-
-* Springboot 
 
 ### Installation
 
