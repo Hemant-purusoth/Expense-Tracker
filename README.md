@@ -2,7 +2,7 @@
 
 A modern full-stack expense management application built with java , Spring Boot and MySQL, designed to help users track spending, visualize financial habits, and manage transactions securely through an intuitive dashboard.
 
-#Live
+# Live
 🔗 https://expense-tracker-rw4s.onrender.com/index.html
 
 ## 🛠️ Tech Stack
